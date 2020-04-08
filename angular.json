@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "HomeworkAssist"
+    }
+  },
+  "defaultProject": "HomeworkAssist",
+  "cli": {
+    "analytics": "80d30dcc-1504-45d0-8441-9dbcb72916f2"
+  }
 }
