@@ -1,0 +1,16 @@
+<mat-tab-group>
+  <mat-tab label="Blog">
+    <mat-accordion
+      *ngIf="announcements"
+      class="container"
+      displayMode="default"
+    >
+      <app-announcement
+        *ngFor="let announcement of announcements.reverse(); let i = index"
+        [announcement]="announcement"
+        [index]="i"
+        [length]="announcements.length - 1"
+      ></app-announcement>
+    </mat-accordion>
+  </mat-tab>
+</mat-tab-group>
