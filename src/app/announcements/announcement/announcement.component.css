@@ -1,0 +1,13 @@
+mat-list-item {
+  /*margin: 25px 50px 1px;*/
+}
+
+.expansion-date {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mat-expansion-panel-header-description {
+  display: flex;
+  justify-content: flex-end;
+}
