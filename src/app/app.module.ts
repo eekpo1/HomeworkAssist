@@ -18,6 +18,13 @@ import { AnnouncementComponent } from './announcements/announcement/announcement
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ForumComponent } from './forum/forum.component';
+import { AppRoutingModule } from './app-routing-module';
+import { HelpComponent } from './help/help.component';
+import { ProfileComponent } from './profile/profile.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -26,6 +33,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
     FooterComponent,
     AnnouncementsComponent,
     AnnouncementComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForumComponent,
+    HelpComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +53,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatCardModule,
     MatTabsModule,
     MatExpansionModule,
+    AppRoutingModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

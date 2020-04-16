@@ -16,9 +16,11 @@ export class AnnouncementsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.announcements = this.announcementService.getFeed();
-    this.announcementService.feedSubject.subscribe((feed: Announcement[]) => {
-      this.announcements = feed;
-    });
+    this.announcementsSub = this.announcementService.feedSubject.subscribe(
+      (feed: Announcement[]) => {
+        this.announcements = feed;
+      }
+    );
   }
 
   ngOnDestroy(): void {

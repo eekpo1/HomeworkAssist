@@ -11,10 +11,10 @@
     >
       <mat-toolbar>Welcome {{ name }}!</mat-toolbar>
       <mat-nav-list>
-        <a mat-list-item href="#">Forum</a>
-        <a mat-list-item href="#">Help</a>
-        <a mat-list-item href="#">Login</a>
-        <a mat-list-item href="#">Register</a>
+        <a mat-list-item routerLink="forum">Forum</a>
+        <a mat-list-item routerLink="help">Help</a>
+        <a mat-list-item routerLink="login">Login</a>
+        <a mat-list-item routerLink="register">Register</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -28,16 +28,21 @@
         >
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <a mat-button class="nav-item">
+        <a
+          mat-button
+          class="nav-item"
+          routerLinkActive="active"
+          [routerLink]="['/']"
+        >
           <mat-icon>school</mat-icon>
           <span id="mascot">HomeworkAssist</span>
         </a>
         <span class="nav-spacer"></span>
         <div class="nav-desktop" *ngIf="!(isHandset$ | async)">
-          <a mat-button class="nav-item">Forum</a>
-          <a mat-button class="nav-item">Help</a>
-          <a mat-button class="nav-item">Login</a>
-          <a mat-button class="nav-item">Register</a>
+          <a mat-button class="nav-item" [routerLink]="['forum']">Forum</a>
+          <a mat-button class="nav-item" routerLink="help">Help</a>
+          <a mat-button class="nav-item" routerLink="login">Login</a>
+          <a mat-button class="nav-item" routerLink="register">Register</a>
           <a
             class="nav-item"
             mat-icon-button
@@ -47,11 +52,11 @@
             <mat-icon>more_vert</mat-icon>
           </a>
           <mat-menu #menu="matMenu">
-            <a href="#" mat-menu-item>
+            <a href="#" mat-menu-item routerLink="profile">
               <mat-icon>perm_identity</mat-icon>
               <span>Profile</span>
             </a>
-            <a href="" mat-menu-item>
+            <a href="#" mat-menu-item routerLink="/" (click)="onLogout()">
               <mat-icon>power_settings_new</mat-icon>
               <span>Logout</span>
             </a>
@@ -59,7 +64,10 @@
         </div>
       </mat-toolbar>
       <!-- Add Content Here -->
-      <ng-content></ng-content>
+      <!--      <ng-content></ng-content>-->
+
+      <!--      We're gonna add the routes here ( The routes are the navigation links for the forum )-->
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </ng-container>
