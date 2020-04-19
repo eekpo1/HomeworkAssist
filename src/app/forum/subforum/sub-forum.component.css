@@ -1,0 +1,10 @@
+.row {
+  border-radius: 15px;
+  padding: 5px;
+  width: inherit;
+  height: 70px;
+}
+
+.mat-stroked-button:hover {
+  color: #e83e8c;
+}

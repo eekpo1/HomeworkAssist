@@ -25,6 +25,10 @@ import { AppRoutingModule } from './app-routing-module';
 import { HelpComponent } from './help/help.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SubForumComponent } from './forum/subforum/sub-forum.component';
+import { ThreadComponent } from './forum/subforum/thread/thread.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ForumComponent,
     HelpComponent,
     ProfileComponent,
+    SubForumComponent,
+    ThreadComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +61,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatExpansionModule,
     AppRoutingModule,
     MatSnackBarModule,
+    MatTreeModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
