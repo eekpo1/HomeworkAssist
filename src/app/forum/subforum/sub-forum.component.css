@@ -1,10 +1,20 @@
 .row {
-  border-radius: 15px;
+  /*border-radius: 15px;*/
   padding: 5px;
   width: inherit;
   height: 70px;
+  /*border: 1px solid lightgray;*/
 }
 
-.mat-stroked-button:hover {
+.mat-button:hover {
   color: #e83e8c;
+}
+
+#subforum-name {
+  margin: auto;
+  border-right: 2px solid black;
+}
+
+.col-4 {
+  margin: auto;
 }

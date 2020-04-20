@@ -1,10 +1,10 @@
 /* Our Node Settings. We work with express in ./e2e/app.js */
 
-const http = require('http');
-const app = require('./e2e/app');
-const debug = require('debug')('node.angular');
+const http = require("http");
+const app = require("./e2e/app");
+const debug = require("debug")("node.angular");
 
-const normalizePort = val => {
+const normalizePort = (val) => {
   let port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -18,9 +18,9 @@ const normalizePort = val => {
   }
 
   return false;
-}
+};
 
-const onError = error => {
+const onError = (error) => {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -36,7 +36,7 @@ const onError = error => {
       process.exit(1);
       break;
     default:
-      throw error
+      throw error;
   }
 };
 
@@ -47,8 +47,7 @@ const onListening = () => {
 };
 
 const port = normalizePort(process.env.PORT || "3000");
-app.set('port', port);
-
+app.set("port", port);
 const server = http.createServer(app);
 
 server.listen(port);
