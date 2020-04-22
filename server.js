@@ -4,8 +4,7 @@ const http = require("http");
 const app = require("./e2e/app");
 const debug = require("debug")("node.angular");
 
-
-const normalizePort = val => {
+const normalizePort = (val) => {
   let port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -52,5 +51,3 @@ app.set("port", port);
 const server = http.createServer(app);
 
 server.listen(port);
-
-module.exports = app;
