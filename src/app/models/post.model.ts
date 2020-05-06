@@ -1,3 +1,8 @@
 export class Post {
-  constructor(public title?: string, public replies?: Post[]) {}
+  constructor(
+    private id: string,
+    public pinned: boolean,
+    public title?: string,
+    public replies?: Post[]
+  ) {}
 }

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Section } from '../../models/Section';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SubForum } from 'src/app/models/subforum.model';
+import { ForumService } from 'src/app/shared/forum.service';
 
 @Component({
   selector: 'app-subforum',
@@ -7,9 +9,14 @@ import { Section } from '../../models/Section';
   styleUrls: ['./sub-forum.component.css'],
 })
 export class SubForumComponent implements OnInit {
-  @Input() sub: string;
+  @Input() sub: SubForum;
+  @Input() index: number;
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private forumService: ForumService
+  ) {}
 
   ngOnInit(): void {}
 }

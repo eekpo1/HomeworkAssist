@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-thread',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./thread.component.css'],
 })
 export class ThreadComponent implements OnInit {
+  @Input() threads: string;
+
   constructor() {}
 
   ngOnInit(): void {}

@@ -1,12 +1,14 @@
-import { RouterModule, Routes } from '@angular/router';
-import { AnnouncementsComponent } from './announcements/announcements.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { ForumComponent } from './forum/forum.component';
 import { NgModule } from '@angular/core';
-import { HelpComponent } from './help/help.component';
-import { ProfileComponent } from './profile/profile.component';
+import { RouterModule, Routes } from '@angular/router';
+
+import { AnnouncementsComponent } from './announcements/announcements.component';
+import { ForumComponent } from './forum/forum.component';
 import { SubForumComponent } from './forum/subforum/sub-forum.component';
+import { ThreadComponent } from './forum/subforum/thread/thread.component';
+import { HelpComponent } from './help/help.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: '', component: AnnouncementsComponent },
@@ -19,7 +21,7 @@ const routes: Routes = [
       {
         path: ':subForum',
         component: SubForumComponent,
-        // children: [{ path: ':threadId' }],
+        children: [{ path: ':threadId', component: ThreadComponent }],
       },
     ],
   },

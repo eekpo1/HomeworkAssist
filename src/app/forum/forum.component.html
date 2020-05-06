@@ -8,8 +8,9 @@
 
       <ng-container>
         <app-subforum
-          *ngFor="let subforum of section.subForums"
+          *ngFor="let subforum of section.subForums; let i = index"
           [sub]="subforum"
+          [index]="i"
         ></app-subforum>
       </ng-container>
     </mat-expansion-panel>
