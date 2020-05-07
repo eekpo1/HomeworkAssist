@@ -42,12 +42,13 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-const postSchema = new mongoose.Schema({
+const postSchema =  mongoose.Schema({
   pinned: { type: Boolean, default: false },
   title: String,
+  contents: String, 
 });
 
-postSchema.add({ replies: { type: [postSchema], default: null } });
+postSchema.add({ replies: { type: [postSchema] } });
 
 let postGroup = [
   'Introductions',
@@ -68,6 +69,8 @@ for (let i = 0; i < postGroup.length; i++) {
   posts.push(mongoose.model(postGroup[i], postSchema));
 }
 
+console.log(posts)
+
 // These headers help us make requests from Node to angular through CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -82,17 +85,57 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/api/:id', (req, res, next) => {
+app.post('/api/posts/:id', (req, res, next) => {
   const i = +req.params.id;
-  // Introductions
-  const subforum = post[i];
+  const subforum = posts[i];
+  console.log(subforum)
+
   const post = new subforum({
-    pinned: req.bod.pinned,
+    pinned: req.body.pinned,
     title: req.body.title,
+    contents: req.body.contents,
+    replies: req.body.replies,
   });
 
-  //return id
+  post.save().then(result => {
+    console.log(result)
+    res.status(201).json({
+      message: 'Post added succesfully',
+      id: result._id,
+    });
+  })
 });
+
+app.get('/api/posts/:id', (req, res) => {
+  const i = +req.params.id;
+  posts[i].find().then((documents) => {
+    console.log(documents)
+    res.status(200).json({
+      message: 'posts fetched',
+      posts: documents,
+    })
+  });
+});
+
+app.delete('/api/posts/:postid/:id', (req, res) => {
+  console.log(req.params)
+  const id = +req.params.postid;
+  posts[id].deleteOne({ _id: req.params.id}).then((result) => {
+    console.log(result.deletedCount)
+    res.status(200).json({ message: 'post deleted'});
+  }, error => {
+    console.log(error)
+  })
+});
+
+// app.update('/api/posts/:postid/:id', (req, res) => {
+//   const postID = +req.params.postid;
+//   const id = +req.params.id;
+
+//   posts[postID].findOneAndUpdate({ _id: id, })
+
+// })
+
 
 app.post('/api/register', (req, res) => {
   User.find({ username: req.body.username }, (err, user) => {
@@ -101,8 +144,7 @@ app.post('/api/register', (req, res) => {
     else {
       bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
         if (err) throw err;
-        User.create(
-          {
+        User.create({
             username: req.body.username,
             firstname: req.body.firstname,
             lastname: req.body.lastname,
