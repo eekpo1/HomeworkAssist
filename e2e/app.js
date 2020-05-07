@@ -192,15 +192,15 @@ app.post('/api/login', (req, res) => {
         // });
         if (correct) {
           const accesToken = generateAccessToken(user.toJSON());
-          const refreshToken = jwt.sign(
-            user.toJSON(),
-            process.env.REFRESH_TOKEN_SECRET
-          );
-          User.updateOne({ refreshToken: refreshToken }, (err, res) => {
+          const refreshToken1 = jwt.sign(user.toJSON(), process.env.REFRESH_TOKEN_SECRET);
+          // console.log(accesToken)
+          User.updateOne({ refreshToken: '321' }, (err, res) => {
             if (err) throw err;
           });
-          console.log(accessToken);
-          res.json({ accessToken: accesToken, userID: user._id });
+          // console.log(accesToken);
+          // console.log(user.username)
+          // console.log(user._id);
+          res.json({ accessToken: '123', userID: user._id });
         }
       });
     }
@@ -215,11 +215,12 @@ app.post('/api/token', (req, res) => {
 
 app.get('/api/users/:id', (req, res) => {
   const id = req.params.id;
-
-  User.findOne({ _id: id }, (err, result) => {
+  // console.log(id)
+  console.log(mongoose.Types.ObjectId.isValid(id));
+  User.findById(id , (err, result) => {
     if (err) throw err;
-    console.log(result);
-    res.json({ user: result });
+    console.log(result)
+    res.status(200).json({ user: result })
   });
 });
 
@@ -235,6 +236,7 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
 }

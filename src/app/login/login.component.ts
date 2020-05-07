@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +25,12 @@ export class LoginComponent implements OnInit {
     const password: string = this.loginForm.value.password;
     this.authService
       .login(username, password)
-      .subscribe((response: { accessToken: string; _id: string }) => {
+      .subscribe((response: { accessToken: string; userID: string }) => {
         if (response) {
+          const id = response.userID;
+          console.log(id);
+          this.authService.user(id, response.accessToken);
+          this.authService.loginSuccess();
           this.router.navigate(['']);
         }
       });
