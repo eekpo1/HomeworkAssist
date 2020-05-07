@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
   roles: {
     admin: { type: Boolean, default: false },
     moderator: { type: Boolean, default: false },
-    verified: { type: Boolean, default: false },
+    verified: { type: Boolean, default: true },
   },
   dateJoined: { type: Date, default: Date.now },
 });
@@ -45,13 +45,21 @@ const User = mongoose.model('User', userSchema);
 const postSchema =  mongoose.Schema({
   pinned: { type: Boolean, default: false },
   title: String,
-  contents: String, 
+  author: String,
+  contents: String,
+  replies: [{
+    username: String,
+    reply: String,
+  }]
 });
 
-postSchema.add({ replies: { type: [postSchema] } });
+// postSchema.add({ replies: { type: [postSchema] } });
 
 let postGroup = [
   'Introductions',
+  'Off Topic',
+  'Projects',
+  'Suggestions',
   'CMPS 2010',
   'CMPS 2020',
   'CMPS 3500',
@@ -88,14 +96,16 @@ app.use((req, res, next) => {
 app.post('/api/posts/:id', (req, res, next) => {
   const i = +req.params.id;
   const subforum = posts[i];
-  console.log(subforum)
-
+  console.log(req.body.replies)
   const post = new subforum({
     pinned: req.body.pinned,
     title: req.body.title,
     contents: req.body.contents,
-    replies: req.body.replies,
+    author: req.body.author,
   });
+
+  // post.replies.push({ username: req.body.username, reply: req.body.reply})
+  // console.log(post)
 
   post.save().then(result => {
     console.log(result)
