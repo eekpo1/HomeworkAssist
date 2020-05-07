@@ -1,5 +1,8 @@
-<div class="login-clean" style="background-color: #fafafa;">
-  <form action="api/login" method="get" [formGroup]="loginForm">
+<div
+  class="login-clean"
+  style="background-color: #fafafa;"
+>
+  <form method="post" (ngSubmit)="onLogin()" [formGroup]="loginForm">
     <h2 class="sr-only">Login Form</h2>
     <div class="illustration"></div>
     <div class="form-group">
@@ -8,6 +11,7 @@
         type="username"
         name="username"
         placeholder="Username"
+        formControlName="username"
         style="font-family: Roboto, sans-serif; color: rgba(0, 0, 0, 0.87);"
       />
     </div>
@@ -17,6 +21,7 @@
         type="password"
         name="password"
         placeholder="Password"
+        formControlName="password"
         style="font-family: Roboto, sans-serif; color: rgba(0, 0, 0, 0.87);"
       />
     </div>

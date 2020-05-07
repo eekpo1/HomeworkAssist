@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <button mat-raised-button matTooltip="Start a new Thread" (click)="newThread()" color="accent">
+        New Thread
+      </button>
+    </div>
+    <div class="col"></div>
+  </div>
+  <mat-list>
+    <app-thread *ngFor="let thread of threads"></app-thread>
+  </mat-list>
+  <router-outlet></router-outlet>
+</div>
+

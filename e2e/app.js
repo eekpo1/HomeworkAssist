@@ -42,15 +42,17 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-const postSchema =  mongoose.Schema({
+const postSchema = mongoose.Schema({
   pinned: { type: Boolean, default: false },
   title: String,
   author: String,
   contents: String,
-  replies: [{
-    username: String,
-    reply: String,
-  }]
+  replies: [
+    {
+      username: String,
+      reply: String,
+    },
+  ],
 });
 
 // postSchema.add({ replies: { type: [postSchema] } });
@@ -77,7 +79,7 @@ for (let i = 0; i < postGroup.length; i++) {
   posts.push(mongoose.model(postGroup[i], postSchema));
 }
 
-console.log(posts)
+console.log(posts);
 
 // These headers help us make requests from Node to angular through CORS
 app.use((req, res, next) => {
@@ -96,7 +98,7 @@ app.use((req, res, next) => {
 app.post('/api/posts/:id', (req, res, next) => {
   const i = +req.params.id;
   const subforum = posts[i];
-  console.log(req.body.replies)
+  console.log(req.body.replies);
   const post = new subforum({
     pinned: req.body.pinned,
     title: req.body.title,
@@ -107,35 +109,38 @@ app.post('/api/posts/:id', (req, res, next) => {
   // post.replies.push({ username: req.body.username, reply: req.body.reply})
   // console.log(post)
 
-  post.save().then(result => {
-    console.log(result)
+  post.save().then((result) => {
+    console.log(result);
     res.status(201).json({
       message: 'Post added succesfully',
       id: result._id,
     });
-  })
+  });
 });
 
 app.get('/api/posts/:id', (req, res) => {
   const i = +req.params.id;
   posts[i].find().then((documents) => {
-    console.log(documents)
+    console.log(documents);
     res.status(200).json({
       message: 'posts fetched',
       posts: documents,
-    })
+    });
   });
 });
 
 app.delete('/api/posts/:postid/:id', (req, res) => {
-  console.log(req.params)
+  console.log(req.params);
   const id = +req.params.postid;
-  posts[id].deleteOne({ _id: req.params.id}).then((result) => {
-    console.log(result.deletedCount)
-    res.status(200).json({ message: 'post deleted'});
-  }, error => {
-    console.log(error)
-  })
+  posts[id].deleteOne({ _id: req.params.id }).then(
+    (result) => {
+      console.log(result.deletedCount);
+      res.status(200).json({ message: 'post deleted' });
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 });
 
 // app.update('/api/posts/:postid/:id', (req, res) => {
@@ -146,7 +151,6 @@ app.delete('/api/posts/:postid/:id', (req, res) => {
 
 // })
 
-
 app.post('/api/register', (req, res) => {
   User.find({ username: req.body.username }, (err, user) => {
     if (err) throw err;
@@ -154,7 +158,8 @@ app.post('/api/register', (req, res) => {
     else {
       bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
         if (err) throw err;
-        User.create({
+        User.create(
+          {
             username: req.body.username,
             firstname: req.body.firstname,
             lastname: req.body.lastname,
@@ -186,19 +191,16 @@ app.post('/api/login', (req, res) => {
         //   message: 'Successful'
         // });
         if (correct) {
-          const accessToken = generateAccessToken(user.toJSON());
+          const accesToken = generateAccessToken(user.toJSON());
           const refreshToken = jwt.sign(
             user.toJSON(),
             process.env.REFRESH_TOKEN_SECRET
           );
-          User.updateOne(
-            { username: user.username },
-            { refreshToken: refreshToken },
-            (err, res) => {
-              if (err) throw err;
-            }
-          );
-          res.json({ accessToken: accessToken, refreshToken: refreshToken });
+          User.updateOne({ refreshToken: refreshToken }, (err, res) => {
+            if (err) throw err;
+          });
+          console.log(accessToken);
+          res.json({ accessToken: accesToken, userID: user._id });
         }
       });
     }
@@ -209,6 +211,16 @@ app.post('/api/token', (req, res) => {
   const refreshToken = req.body.token;
   console.log(req.body);
   //store in db
+});
+
+app.get('/api/users/:id', (req, res) => {
+  const id = req.params.id;
+
+  User.findOne({ _id: id }, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.json({ user: result });
+  });
 });
 
 function authenticateToken(req, res, next) {
@@ -224,7 +236,6 @@ function authenticateToken(req, res, next) {
   });
 }
 function generateAccessToken(user) {
-  console.log(user);
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
 }
 module.exports = app;
