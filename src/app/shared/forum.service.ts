@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Post } from '../models/post.model';
 import { Section } from '../models/Section';
 import { SubForum } from '../models/subforum.model';
+import { PostService, ResponseBody } from './post.service';
 
 interface Forum {
   sections: Section[];
@@ -58,14 +59,43 @@ export class ForumService {
   ];
 
   private subForum: Post[] = [];
+  private idx = 0;
 
   forumObserver = new BehaviorSubject<Section[]>(this.forum.sections);
 
-  constructor(private http: HttpClient) {}
+  constructor(private postService: PostService) {}
 
   getForum() {
     this.forumObserver.next(this.forum.sections);
   }
 
-  getThreads(i: number) {}
+  setThreads(subForum: Post[]) {
+    this.subForum = subForum;
+  }
+
+  getThreads() {
+    this.postService.fetchPosts('' + this.idx).subscribe(
+      (response: ResponseBody) => {
+        this.subForum = response.documents;
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
+    return this.subForum.slice();
+  }
+
+  updateIdx(idx: number) {
+    this.idx = idx;
+  }
+
+  getIndices(): Map<string, number> {
+    const indices = this.indices.slice();
+    const map = new Map<string, number>();
+
+    for (let i = 0; i < indices.length; i++) {
+      map.set(indices[i], i);
+    }
+    return map;
+  }
 }

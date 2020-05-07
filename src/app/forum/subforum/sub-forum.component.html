@@ -1,7 +1,7 @@
 <div class="subforum-container">
   <div class="row">
     <div class="col-8" id="subforum-name">
-      <a mat-button (click)="onClick()">{{ sub.title }}</a>
+      <a mat-button [routerLink]="[index]" routerLinkActive="active">{{ sub.title }}</a>
     </div>
     <div class="col-4">Posts: {{ sub.threads.length }}</div>
   </div>

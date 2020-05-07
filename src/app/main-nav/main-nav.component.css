@@ -24,6 +24,9 @@
 .nav-spacer {
   flex: 1 1 auto;
 }
+.mat-button:hover {
+  color: white;
+}
 
 div .nav-item {
   margin-right: 2rem;

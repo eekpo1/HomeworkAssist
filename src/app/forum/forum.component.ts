@@ -6,7 +6,7 @@ import { ForumService } from '../shared/forum.service';
 @Component({
   selector: 'app-forum',
   templateUrl: './forum.component.html',
-  styleUrls: ['./forum.component.css'],
+  styleUrls: ['./subforum/forum.component.css'],
 })
 export class ForumComponent implements OnInit, OnDestroy {
   structure: Section[];

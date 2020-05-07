@@ -4,11 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AnnouncementsComponent } from './announcements/announcements.component';
 import { ForumComponent } from './forum/forum.component';
 import { SubForumComponent } from './forum/subforum/sub-forum.component';
-import { ThreadComponent } from './forum/subforum/thread/thread.component';
+import { ThreadComponent } from './forum/subforum/thread-list/thread/thread.component';
 import { HelpComponent } from './help/help.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { ThreadListComponent } from './forum/subforum/thread-list/thread-list.component';
 
 const routes: Routes = [
   { path: '', component: AnnouncementsComponent },
@@ -18,13 +19,14 @@ const routes: Routes = [
     path: 'forum',
     component: ForumComponent,
     children: [
-      {
-        path: ':subForum',
-        component: SubForumComponent,
-        children: [{ path: ':threadId', component: ThreadComponent }],
-      },
+      // {
+      //   path: ':subForum',
+      //   component: SubForumComponent,
+      //   children: [],
+      // },
     ],
   },
+  { path: 'forum/:id', component: ThreadListComponent },
   { path: 'help', component: HelpComponent },
   { path: 'profile', component: ProfileComponent },
 ];

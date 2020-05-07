@@ -24,13 +24,22 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { ForumComponent } from './forum/forum.component';
 import { SubForumComponent } from './forum/subforum/sub-forum.component';
-import { ThreadComponent } from './forum/subforum/thread/thread.component';
+import { ThreadComponent } from './forum/subforum/thread-list/thread/thread.component';
 import { HelpComponent } from './help/help.component';
 import { LoginComponent } from './login/login.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { ThreadListComponent } from './forum/subforum/thread-list/thread-list.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NewThreadComponent } from './forum/subforum/thread-list/new-thread/new-thread.component';
+import { RteComponent } from './forum/subforum/thread-list/new-thread/rte.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -46,6 +55,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProfileComponent,
     SubForumComponent,
     ThreadComponent,
+    ThreadListComponent,
+    NewThreadComponent,
+    RteComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +79,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatProgressBarModule,
     HttpClientModule,
     ReactiveFormsModule,
+    EditorModule,
+    MatTooltipModule,
+    MatBottomSheetModule,
+    MatStepperModule,
+    MatInputModule,
+    CKEditorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
