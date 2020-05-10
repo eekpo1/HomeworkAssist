@@ -1,2 +1,23 @@
-<p>Thread Component WOrks!</p>
-
+<div class="subforum-container">
+  <div class="row main">
+    <div class="col-1 voteBtn">
+      <div class="row justify-content-md-center">
+        <a mat-icon-button>
+          <mat-icon #upvote>arrow_drop_up</mat-icon>
+        </a>
+      </div>
+      <div class="row justify-content-md-center">
+        <button mat-icon-button #downvote>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="col-7">
+      <a mat-button [routerLink]="[id]" routerLinkActive="router-link-active"
+        >{{ thread.title}} by {{ thread.author }}</a
+      >
+    </div>
+    <div class="col-4 replyBox">Replies: {{ thread.replies.length }}</div>
+  </div>
+  <br />
+</div>

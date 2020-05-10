@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../../../models/post.model';
-import { ActivatedRoute, Params } from '@angular/router';
-import { ForumService } from '../../../shared/forum.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { RteComponent } from './new-thread/rte.component';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
+import { Post } from '../../../models/post.model';
+import { ForumService } from '../../../shared/forum.service';
 
 @Component({
   selector: 'app-thread-list',
@@ -14,20 +14,24 @@ export class ThreadListComponent implements OnInit {
   id: number;
   threads: Post[];
 
+  // threads = ['sfdsfsd', '1', '3', '3'];
+
   constructor(
     private route: ActivatedRoute,
     private forumService: ForumService,
-    private bottomSheet: MatBottomSheet
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = +params.id;
-      this.threads = this.forumService.getThreads();
+      console.log(this.id);
+      this.forumService.updateIdx(this.id);
+      this.forumService.getThreads();
+      this.forumService.threads.subscribe((threads) => {
+        this.threads = threads;
+        console.log(threads);
+      });
     });
-  }
-
-  newThread() {
-    this.bottomSheet.open(RteComponent);
   }
 }

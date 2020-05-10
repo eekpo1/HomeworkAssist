@@ -1,11 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { Post } from '../models/post.model';
 import { Section } from '../models/Section';
 import { SubForum } from '../models/subforum.model';
-import { PostService, ResponseBody } from './post.service';
+import { PostService } from './post.service';
 
 interface Forum {
   sections: Section[];
@@ -59,9 +58,10 @@ export class ForumService {
   ];
 
   private subForum: Post[] = [];
-  private idx = 0;
+  idx = 0;
 
   forumObserver = new BehaviorSubject<Section[]>(this.forum.sections);
+  threads = new BehaviorSubject<Post[]>(this.subForum);
 
   constructor(private postService: PostService) {}
 
@@ -74,9 +74,21 @@ export class ForumService {
   }
 
   getThreads() {
-    this.postService.fetchPosts('' + this.idx).subscribe(
-      (response: ResponseBody) => {
-        this.subForum = response.documents;
+    this.postService.fetchPosts(`${this.idx}`).subscribe(
+      (response) => {
+        console.log(response.posts);
+        this.subForum = response.posts.map((post) => {
+          const temp = {
+            _id: post._id,
+            pinned: post.pinned,
+            contents: post.contents,
+            author: post.author,
+            title: post.title,
+            replies: post.replies,
+          };
+          return temp;
+        });
+        this.threads.next(this.subForum);
       },
       (error) => {
         console.log(error.error);

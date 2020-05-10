@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { ForumService } from './forum.service';
 import { Post } from '../models/post.model';
-import { Observable, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +26,8 @@ export class PostService {
     );
   }
 
-  fetchPosts(forum: string): Observable<any> {
-    return this.http.get<ResponseBody>(
+  fetchPosts(forum: string) {
+    return this.http.get<{ message: string; posts: Post[] }>(
       `http://localhost:4200/api/posts/${forum}`
     );
   }

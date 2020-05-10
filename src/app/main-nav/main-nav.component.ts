@@ -33,12 +33,14 @@ export class MainNavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loginStatus = this.authService.loginStatus.subscribe(status => {
+    this.loginStatus = this.authService.loginStatus.subscribe((status) => {
       this.isLoggedIn = status;
       if (this.isLoggedIn) {
-        this.user = this.authService.userEmitter.subscribe();
+        this.authService.userEmitter.subscribe((user) => {
+          this.user = user;
+        });
       }
-    })
+    });
   }
 
   onLogout() {

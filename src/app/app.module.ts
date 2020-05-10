@@ -35,11 +35,11 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { ThreadListComponent } from './forum/subforum/thread-list/thread-list.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NewThreadComponent } from './forum/subforum/thread-list/new-thread/new-thread.component';
-import { RteComponent } from './forum/subforum/thread-list/new-thread/rte.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { PostComponent } from './forum/subforum/thread-list/thread/post/post.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ThreadComponent,
     ThreadListComponent,
     NewThreadComponent,
-    RteComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +79,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     MatProgressBarModule,
     HttpClientModule,
     ReactiveFormsModule,
-    EditorModule,
     MatTooltipModule,
     MatBottomSheetModule,
     MatStepperModule,

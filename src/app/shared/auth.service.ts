@@ -42,7 +42,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           if (response && response.message === 'Successful') {
-            console.log('Successful)')
+            console.log('Successful)');
             this.currentUser = user;
             this.login(user.username, user.password).subscribe((res) => {
               this.currentUser.id = res.userID;
@@ -50,7 +50,7 @@ export class AuthService {
               this.loggedIn = true;
               this.loginStatus.next(this.loggedIn);
               this.userEmitter.next(this.currentUser);
-              console.log(this.currentUser.username)
+              console.log(this.currentUser.username);
             });
           }
         })
@@ -58,7 +58,7 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.httpClient.post<{ accessToken: string, userID : string }>(
+    return this.httpClient.post<{ accessToken: string; userID: string }>(
       'http://localhost:4200/api/login',
       { username, password }
     );
@@ -69,11 +69,10 @@ export class AuthService {
       .get<{ user: any }>(`http://localhost:3000/api/users/${id}`)
       .subscribe((result) => {
         const user = result.user;
-        console.log(`USER:::::: ${id}`)
-        console.log(`USER::::::::::::::: ${user}`)
-        console.log(user)
-        console.log(`${user._id}`)
-
+        console.log(`USER:::::: ${id}`);
+        console.log(`USER::::::::::::::: ${user}`);
+        console.log(user);
+        console.log(`${user._id}`);
 
         // console.log(`this is supposed to be the user: ${user}`)
         // this.currentUser = user;
@@ -85,8 +84,8 @@ export class AuthService {
           email: user.email,
           password: user.password,
           roles: user.roles,
-          token
-        }
+          token,
+        };
         this.currentUser = newUser;
         console.log(this.currentUser);
         this.loggedIn = true;
@@ -114,16 +113,16 @@ export class AuthService {
 
 interface User2 {
   roles: {
-    admin: boolean,
-    moderator: boolean,
-    verified: boolean
+    admin: boolean;
+    moderator: boolean;
+    verified: boolean;
   };
   refreshToken: string;
   _id: string;
   username: string;
   firstname: string;
-  lastname: string
-  email: string
+  lastname: string;
+  email: string;
   password: string;
   dateJoined: Date;
   __v: number;

@@ -3,13 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AnnouncementsComponent } from './announcements/announcements.component';
 import { ForumComponent } from './forum/forum.component';
-import { SubForumComponent } from './forum/subforum/sub-forum.component';
-import { ThreadComponent } from './forum/subforum/thread-list/thread/thread.component';
+import { ThreadListComponent } from './forum/subforum/thread-list/thread-list.component';
+import { PostComponent } from './forum/subforum/thread-list/thread/post/post.component';
 import { HelpComponent } from './help/help.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { ThreadListComponent } from './forum/subforum/thread-list/thread-list.component';
+import { SubForumResolverService } from './forum/subforum/subforum-resolver.service';
+import { NewThreadComponent } from './forum/subforum/thread-list/new-thread/new-thread.component';
 
 const routes: Routes = [
   { path: '', component: AnnouncementsComponent },
@@ -27,6 +28,15 @@ const routes: Routes = [
     ],
   },
   { path: 'forum/:id', component: ThreadListComponent },
+  {
+    path: 'forum/:id/new',
+    component: NewThreadComponent,
+  },
+  {
+    path: 'forum/:id/:thread',
+    component: PostComponent,
+    resolve: { thread: SubForumResolverService },
+  },
   { path: 'help', component: HelpComponent },
   { path: 'profile', component: ProfileComponent },
 ];

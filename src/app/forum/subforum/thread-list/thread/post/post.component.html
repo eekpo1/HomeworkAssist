@@ -1,0 +1,38 @@
+<body>
+  <div class="container">
+    <div itemscope>
+      <div class="row">
+        <div id="subforum-name">
+          <h1 itemprop="title">{{ forumIdx }}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <!--user info-->
+          <p>{{ post.author }}</p>
+        </div>
+        <div class="col-10">
+          <div class="subforum-text" itemprop="text">
+            <p>{{ post.contents }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul id="responses" *ngIf="post.replies.length > 0">
+      <div itemscope>
+        <div class="row">
+          <div class="col-2">
+            <!--user info-->
+            <p>user info</p>
+          </div>
+          <div class="col-10">
+            <div class="response-text" itemprop="text">
+              <p>subforum response 1 here</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+</body>

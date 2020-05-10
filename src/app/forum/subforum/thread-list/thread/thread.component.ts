@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../../../models/post.model';
 
 @Component({
@@ -8,7 +8,14 @@ import { Post } from '../../../../models/post.model';
   styleUrls: ['./thread.component.css'],
 })
 export class ThreadComponent implements OnInit {
-  constructor() {}
+  @Input() thread: Post;
+  id: number;
+  constructor(private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('sdfsdfd');
+    this.route.params.subscribe((params) => {
+      this.id = params.id;
+    });
+  }
 }
