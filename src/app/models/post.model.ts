@@ -18,7 +18,7 @@
 // }
 
 export interface Post {
-  _id: string;
+  _id: string | null;
   pinned: boolean;
   contents: string;
   author: string;

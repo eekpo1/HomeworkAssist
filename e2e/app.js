@@ -1,28 +1,28 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 // const Post = require('./models/post');
 const app = express();
 // JSON PARSER - Body Parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // We should put the mongoose connection here
 let db = mongoose.connection;
 mongoose.connect(
-  'mongodb+srv://edwin:three2one@homeworkassist-1kviu.mongodb.net/HomeworkAssist',
-  { useNewUrlParser: true }
+  "mongodb+srv://edwin:three2one@homeworkassist-1kviu.mongodb.net/HomeworkAssist",
+  {useNewUrlParser: true}
 );
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function () {
   // we're connected!
-  console.log('database connection successful');
+  console.log("database connection successful");
 });
 
 const userSchema = new mongoose.Schema({
@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
   dateJoined: { type: Date, default: Date.now },
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 const postSchema = mongoose.Schema({
   pinned: { type: Boolean, default: false },
@@ -58,19 +58,18 @@ const postSchema = mongoose.Schema({
 // postSchema.add({ replies: { type: [postSchema] } });
 
 let postGroup = [
-  'Introductions',
-  'Off Topic',
-  'Projects',
-  'Suggestions',
-  'CMPS 2010',
-  'CMPS 2020',
-  'CMPS 3500',
-  'CMPS 3990',
-  'CMPS 3233',
-  'CMPS 3233',
-  'CMPS 3233',
-  'CMPS 4500',
-  'CMPS 4540',
+  "Introductions",
+  "Off Topic",
+  "Projects",
+  "Suggestons",
+  "CMPS 2010",
+  "CMPS 2020",
+  "CMPS 2020",
+  "CMPS 3120",
+  "CMPS 3420",
+  "CMPS 3500",
+  "CMPS 3540",
+  "CMPS 3600",
 ];
 
 let posts = [];
@@ -83,19 +82,19 @@ console.log(posts);
 
 // These headers help us make requests from Node to angular through CORS
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
   res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PATCH, DELETE, PUT, OPTIONS'
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, DELETE, PUT, OPTIONS"
   );
   next();
 });
 
-app.post('/api/posts/:id', (req, res, next) => {
+app.post("/api/posts/:id", (req, res, next) => {
   const i = +req.params.id;
   const subforum = posts[i];
   console.log(req.body.replies);
@@ -112,30 +111,30 @@ app.post('/api/posts/:id', (req, res, next) => {
   post.save().then((result) => {
     console.log(result);
     res.status(201).json({
-      message: 'Post added succesfully',
+      message: "Post added succesfully",
       id: result._id,
     });
   });
 });
 
-app.get('/api/posts/:id', (req, res) => {
+app.get("/api/posts/:id", (req, res) => {
   const i = +req.params.id;
   posts[i].find().then((documents) => {
     console.log(documents);
     res.status(200).json({
-      message: 'posts fetched',
+      message: "posts fetched",
       posts: documents,
     });
   });
 });
 
-app.delete('/api/posts/:postid/:id', (req, res) => {
+app.delete("/api/posts/:postid/:id", (req, res) => {
   console.log(req.params);
   const id = +req.params.postid;
-  posts[id].deleteOne({ _id: req.params.id }).then(
+  posts[id].deleteOne({_id: req.params.id}).then(
     (result) => {
       console.log(result.deletedCount);
-      res.status(200).json({ message: 'post deleted' });
+      res.status(200).json({message: "post deleted"});
     },
     (error) => {
       console.log(error);
@@ -151,10 +150,10 @@ app.delete('/api/posts/:postid/:id', (req, res) => {
 
 // })
 
-app.post('/api/register', (req, res) => {
-  User.find({ username: req.body.username }, (err, user) => {
+app.post("/api/register", (req, res) => {
+  User.find({username: req.body.username}, (err, user) => {
     if (err) throw err;
-    if (user.length > 0) res.status(409).json({ message: 'Username taken' });
+    if (user.length > 0) res.status(409).json({message: "Username taken"});
     else {
       bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
         if (err) throw err;
@@ -170,7 +169,7 @@ app.post('/api/register', (req, res) => {
             if (err) throw err;
             else {
               res.status(201).json({
-                message: 'Successful',
+                message: "Successful",
               });
             }
           }
@@ -180,8 +179,8 @@ app.post('/api/register', (req, res) => {
   });
 });
 
-app.post('/api/login', (req, res) => {
-  User.findOne({ username: req.body.username }, (err, user) => {
+app.post("/api/login", (req, res) => {
+  User.findOne({username: req.body.username}, (err, user) => {
     if (err) throw err;
     // console.log(user);
     if (user) {
@@ -192,41 +191,44 @@ app.post('/api/login', (req, res) => {
         // });
         if (correct) {
           const accesToken = generateAccessToken(user.toJSON());
-          const refreshToken1 = jwt.sign(user.toJSON(), process.env.REFRESH_TOKEN_SECRET);
+          const refreshToken1 = jwt.sign(
+            user.toJSON(),
+            process.env.REFRESH_TOKEN_SECRET
+          );
           // console.log(accesToken)
-          User.updateOne({ refreshToken: '321' }, (err, res) => {
+          User.updateOne({refreshToken: "321"}, (err, res) => {
             if (err) throw err;
           });
           // console.log(accesToken);
           // console.log(user.username)
           // console.log(user._id);
-          res.json({ accessToken: '123', userID: user._id });
+          res.json({accessToken: "123", userID: user._id});
         }
       });
     }
   });
 });
 
-app.post('/api/token', (req, res) => {
+app.post("/api/token", (req, res) => {
   const refreshToken = req.body.token;
   console.log(req.body);
   //store in db
 });
 
-app.get('/api/users/:id', (req, res) => {
+app.get("/api/users/:id", (req, res) => {
   const id = req.params.id;
   // console.log(id)
   console.log(mongoose.Types.ObjectId.isValid(id));
-  User.findById(id , (err, result) => {
+  User.findById(id, (err, result) => {
     if (err) throw err;
-    console.log(result)
-    res.status(200).json({ user: result })
+    console.log(result);
+    res.status(200).json({user: result});
   });
 });
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (token == null) return res.sendStatus(401);
 
@@ -238,6 +240,6 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "10m"});
 }
 module.exports = app;

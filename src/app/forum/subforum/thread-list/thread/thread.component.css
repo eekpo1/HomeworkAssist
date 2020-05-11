@@ -1,11 +1,20 @@
+.subforum-container {
+  padding: 5px 0px;
+}
+
 .main {
-  border-style: solid;
+  /* border-style: solid; */
+  background-color: aliceblue;
   border-width: 2px;
 }
 
 .voteBtn {
-  border-right-style: solid;
+  /* border-right-style: solid; */
   border-width: 2px;
+}
+
+.name {
+  padding-top: 15px;
 }
 
 .replyBox {
@@ -20,4 +29,8 @@
 .activeDownvoteBtn {
   background-color: red;
   border-radius: 15px;
+}
+
+mat-divider {
+  width: inherit;
 }

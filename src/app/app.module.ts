@@ -29,17 +29,18 @@ import { HelpComponent } from './help/help.component';
 import { LoginComponent } from './login/login.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { ProfileComponent } from './profile/profile.component';
-import { RegisterComponent } from './register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { EditorModule } from '@tinymce/tinymce-angular';
-import { ThreadListComponent } from './forum/subforum/thread-list/thread-list.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { NewThreadComponent } from './forum/subforum/thread-list/new-thread/new-thread.component';
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatInputModule } from '@angular/material/input';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { PostComponent } from './forum/subforum/thread-list/thread/post/post.component';
+import {RegisterComponent} from './register/register.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {ThreadListComponent} from './forum/subforum/thread-list/thread-list.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {NewThreadComponent} from './forum/subforum/thread-list/new-thread/new-thread.component';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatInputModule} from '@angular/material/input';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
+import {PostComponent} from './forum/subforum/thread-list/thread/post/post.component';
+import {MatBadgeModule} from '@angular/material/badge';
+import {RteComponent} from './forum/subforum/thread-list/rte/rte.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { PostComponent } from './forum/subforum/thread-list/thread/post/post.com
     ThreadListComponent,
     NewThreadComponent,
     PostComponent,
+    RteComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +86,7 @@ import { PostComponent } from './forum/subforum/thread-list/thread/post/post.com
     MatStepperModule,
     MatInputModule,
     CKEditorModule,
+    MatBadgeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

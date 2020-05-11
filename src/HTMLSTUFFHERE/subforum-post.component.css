@@ -1,9 +1,8 @@
-.col-10{
-    border: 1px solid lightgray;
-
+.col-10 {
+  border: 1px solid lightgray;
 }
 
-#responses{
-    padding: 35px;
-    margin: 10px;
+#responses {
+  padding: 35px;
+  margin: 10px;
 }

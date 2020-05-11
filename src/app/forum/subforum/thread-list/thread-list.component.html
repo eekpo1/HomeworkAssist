@@ -12,7 +12,11 @@
     </div>
     <div class="col-10">
       <mat-list>
-        <app-thread *ngFor="let thread of threads; let i = index" [thread]="thread"></app-thread>
+        <app-thread
+          *ngFor="let thread of threads; let i = index"
+          [thread]="thread"
+          [id]="i"
+        ></app-thread>
       </mat-list>
       <router-outlet></router-outlet>
     </div>

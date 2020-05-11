@@ -69,14 +69,14 @@ export class AuthService {
       .get<{ user: any }>(`http://localhost:3000/api/users/${id}`)
       .subscribe((result) => {
         const user = result.user;
-        console.log(`USER:::::: ${id}`);
-        console.log(`USER::::::::::::::: ${user}`);
-        console.log(user);
-        console.log(`${user._id}`);
+        // console.log(`USER:::::: ${id}`);
+        // console.log(`USER::::::::::::::: ${user}`);
+        // console.log(user);
+        // console.log(`${user._id}`);
 
         // console.log(`this is supposed to be the user: ${user}`)
         // this.currentUser = user;
-        const newUser: User = {
+        this.currentUser = {
           id: user._id,
           username: user.username,
           firstname: user.firstname,
@@ -86,7 +86,6 @@ export class AuthService {
           roles: user.roles,
           token,
         };
-        this.currentUser = newUser;
         console.log(this.currentUser);
         this.loggedIn = true;
         this.loginStatus.next(this.loggedIn);

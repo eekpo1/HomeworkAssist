@@ -9,7 +9,6 @@ import { HelpComponent } from './help/help.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { SubForumResolverService } from './forum/subforum/subforum-resolver.service';
 import { NewThreadComponent } from './forum/subforum/thread-list/new-thread/new-thread.component';
 
 const routes: Routes = [
@@ -35,7 +34,6 @@ const routes: Routes = [
   {
     path: 'forum/:id/:thread',
     component: PostComponent,
-    resolve: { thread: SubForumResolverService },
   },
   { path: 'help', component: HelpComponent },
   { path: 'profile', component: ProfileComponent },

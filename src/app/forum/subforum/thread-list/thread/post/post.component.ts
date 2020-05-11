@@ -20,7 +20,7 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.id = +params.id;
+      this.id = +params.thread;
     });
 
     this.forumService.threads.subscribe((threads) => {

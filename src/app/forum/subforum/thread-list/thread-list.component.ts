@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Post } from '../../../models/post.model';
@@ -30,7 +29,6 @@ export class ThreadListComponent implements OnInit {
       this.forumService.getThreads();
       this.forumService.threads.subscribe((threads) => {
         this.threads = threads;
-        console.log(threads);
       });
     });
   }

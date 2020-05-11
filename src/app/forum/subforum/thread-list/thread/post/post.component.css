@@ -1,5 +1,40 @@
+body {
+}
+
+.title {
+  padding-left: 140px;
+  color: white !important;
+  font-size: x-large;
+}
+
+.container {
+  min-height: 300px;
+}
+
+.subforum-author {
+  margin: auto;
+  padding: 30px 20px;
+}
+
+.post-wrapper {
+}
+
+.subforum-text {
+  padding: 20px;
+}
+
+.col-2 {
+  border-left: 3px solid black;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+}
+
+.post {
+  /*background-color: #dae0e5;*/
+}
+
 .col-10 {
-  border: 1px solid black;
+  border: 3px solid black;
 }
 
 #responses {

@@ -110,4 +110,8 @@ export class ForumService {
     }
     return map;
   }
+
+  submitThread(forum: string, thread: Post) {
+    return this.postService.storePost(forum, thread);
+  }
 }

@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Post } from '../../../../models/post.model';
+import {Component, Input, OnInit} from '@angular/core';
+import {Post} from '../../../../models/post.model';
 
 @Component({
   selector: 'app-thread',
@@ -9,13 +8,19 @@ import { Post } from '../../../../models/post.model';
 })
 export class ThreadComponent implements OnInit {
   @Input() thread: Post;
-  id: number;
-  constructor(private route: ActivatedRoute) {}
+  @Input() id: number;
+  path: string;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
-    console.log('sdfsdfd');
-    this.route.params.subscribe((params) => {
-      this.id = params.id;
-    });
+    this.path = this.id.toString();
+    console.log(this.path);
+    // console.log('sdfsdfd');
+    // this.route.params.subscribe((params) => {
+    //   this.id = params.thread;
+    //   console.log(this.id);
+    // });
   }
 }

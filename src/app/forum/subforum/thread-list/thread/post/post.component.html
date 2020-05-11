@@ -1,19 +1,36 @@
 <body>
-  <div class="container">
-    <div itemscope>
-      <div class="row">
-        <div id="subforum-name">
-          <h1 itemprop="title">{{ forumIdx }}</h1>
-        </div>
+<mat-toolbar
+  color="primary"
+  style="
+      width: 80% !important;
+      margin: auto;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+      border-top: 1px solid black;
+    "
+>
+  <button mat-button class="mat-headline title" disabled>
+    <em>{{ post.title | titlecase }}</em>
+  </button>
+</mat-toolbar>
+<div class="container post">
+  <!-- <mat-divider></mat-divider> -->
+  <div itemscope class="post-wrapper">
+    <div class="row">
+      <div id="subforum-name">
+        <h1 itemprop="title">{{ forumIdx }}</h1>
       </div>
-      <div class="row">
-        <div class="col-2">
-          <!--user info-->
-          <p>{{ post.author }}</p>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <!--user info-->
+        <p class="mat-headline subforum-author">
+          {{ post.author | titlecase }}
+        </p>
+      </div>
         <div class="col-10">
           <div class="subforum-text" itemprop="text">
-            <p>{{ post.contents }}</p>
+            <p [innerHTML]="post.contents">{{ post.contents }}</p>
           </div>
         </div>
       </div>

@@ -17,6 +17,7 @@ export class MainNavComponent implements OnInit {
   user: User;
   isLoggedIn: boolean;
   loginStatus: Subscription;
+  notifications: number;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -41,11 +42,12 @@ export class MainNavComponent implements OnInit {
         });
       }
     });
+    this.notifications = 0;
   }
 
   onLogout() {
     const message = 'You Have Been Logged Out.';
-    this.snackBar.open(message, 'Confirm', { duration: 3000 });
+    this.snackBar.open(message, 'Confirm', {duration: 3000});
     this.authService.logout();
     this.router.navigate(['']);
   }

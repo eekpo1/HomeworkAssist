@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
       passwordConfirm: new FormControl(
         '',
         [Validators.required],
-        this.confirmPasswordValidator
+        this.confirmPasswordValidator.bind(this)
       ),
     });
   }

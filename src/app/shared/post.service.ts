@@ -13,8 +13,8 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   storePost(forum: string, post: Post): Observable<any> {
-    return this.http.post<ResponseBody>(
-      `http://localhost:4200/api/posts/${forum}/${post}`,
+    return this.http.post<{ message: string; id: string }>(
+      `http://localhost:4200/api/posts/${forum}`,
       post
     );
   }
