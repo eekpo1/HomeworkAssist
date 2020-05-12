@@ -40,16 +40,16 @@
     <app-wtf [wat]="node.item"></app-wtf>
   </mat-tree-node>
 
-  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-    <button mat-icon-button (click)="loadChildren(node)" matTreeNodePadding>
-      <mat-icon class="">
-        {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
-      </mat-icon>
-    </button>
-    {{ node.item }}
-  </mat-tree-node>
+  <!--  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>-->
+  <!--    <button mat-icon-button (click)="loadChildren(node)" matTreeNodePadding>-->
+  <!--      <mat-icon class="">-->
+  <!--        {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}-->
+  <!--      </mat-icon>-->
+  <!--    </button>-->
+  <!--    {{ node.item }}-->
+  <!--  </mat-tree-node>-->
 
-  <mat-tree-node *matTreeNodeDef="let node; when: isLoadMore">
-    <button mat-button (click)="loadmore(node.parent)"></button>
-  </mat-tree-node>
+  <!--  <mat-tree-node *matTreeNodeDef="let node; when: isLoadMore">-->
+  <!--    <button mat-button (click)="loadmore(node.parent)"></button>-->
+  <!--  </mat-tree-node>-->
 </mat-tree>

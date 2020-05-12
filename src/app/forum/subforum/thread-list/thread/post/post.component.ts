@@ -40,9 +40,7 @@ export class MoreFlatNode {
   ) {}
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class PostDB {
   maxPosts = 3;
   dataChange = new BehaviorSubject<MoreNode[]>([]);
