@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ForumService } from '../../../../../shared/forum.service';
 import { Post } from '../../../../../models/post.model';
 import { ActivatedRoute } from '@angular/router';
@@ -47,6 +47,7 @@ export class PostDB {
   dataMap = new Map<Post, Post[]>();
   nodeMap = new Map<Post, MoreNode>();
   root: Post;
+  wrapper: Post[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -59,13 +60,14 @@ export class PostDB {
     this.forumService.threads.subscribe((threads) => {
       this.root = threads[id];
       this.root.replies.push(LOAD_MORE);
+      this.wrapper.push(this.root);
     });
     this.createMap();
   }
 
   initialize() {
     console.log(this.dataMap);
-    const data = [this.root].map((name) => this._generateNode(name));
+    const data = this.wrapper.map((name) => this._generateNode(name));
     console.log(data);
     this.dataChange.next(data);
   }
@@ -127,16 +129,77 @@ export class PostDB {
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
+  providers: [PostDB],
 })
 export class PostComponent implements OnInit {
   post: Post;
   id: number;
   forumIdx = this.forumService.getIndices().keys()[this.forumService.idx];
 
+  nodeMap = new Map<Post, MoreFlatNode>();
+  treeControl: FlatTreeControl<MoreFlatNode>;
+  treeFlattener: MatTreeFlattener<MoreNode, MoreFlatNode>;
+
+  dataSource: MatTreeFlatDataSource<MoreNode, MoreFlatNode>;
+
   constructor(
     private route: ActivatedRoute,
-    private forumService: ForumService
-  ) {}
+    private forumService: ForumService,
+    private db: PostDB
+  ) {
+    this.treeFlattener = new MatTreeFlattener(
+      this.transformer,
+      this.getLevel,
+      this.isExpandable,
+      this.getChildren
+    );
+
+    this.treeControl = new FlatTreeControl<MoreFlatNode>(
+      this.getLevel,
+      this.isExpandable
+    );
+
+    this.dataSource = new MatTreeFlatDataSource<MoreNode, MoreFlatNode>(
+      this.treeControl,
+      this.treeFlattener
+    );
+
+    this.db.dataChange.subscribe((data) => {
+      console.log(data);
+      this.dataSource.data = data;
+      console.log(this.dataSource.data);
+    });
+
+    this.db.initialize();
+  }
+
+  getChildren = (node: MoreNode): Observable<MoreNode[]> => node.childrenChange;
+
+  transformer = (node: MoreNode, level: number) => {
+    const existingNode = this.nodeMap.get(node.item);
+
+    if (existingNode) {
+      return existingNode;
+    }
+
+    const newNode = new MoreFlatNode(
+      node.item,
+      level,
+      node.hasChildren,
+      node.parent
+    );
+    this.nodeMap.set(node.item, newNode);
+    return newNode;
+  };
+
+  getLevel = (node: MoreFlatNode) => node.level;
+
+  isExpandable = (node: MoreFlatNode) => node.expandable;
+
+  hasChild = (_: number, nodeData: MoreFlatNode) => nodeData.expandable;
+  isLoadMore = (_: number, nodeData: MoreFlatNode) =>
+    // tslint:disable-next-line:semicolon
+    nodeData.item === LOAD_MORE;
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -146,5 +209,13 @@ export class PostComponent implements OnInit {
     this.forumService.threads.subscribe((threads) => {
       this.post = threads[this.id];
     });
+  }
+
+  loadMore(item: Post) {
+    this.db.loadMore(item);
+  }
+
+  loadChildren(node: MoreFlatNode) {
+    this.db.loadMore(node.item, true);
   }
 }
