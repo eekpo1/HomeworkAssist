@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../../../../models/post.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { Post } from '../../../../models/post.model';
 
 @Component({
   selector: 'app-thread',
@@ -11,8 +11,7 @@ export class ThreadComponent implements OnInit {
   @Input() id: number;
   path: string;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.path = this.id.toString();

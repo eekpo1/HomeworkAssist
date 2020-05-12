@@ -47,7 +47,7 @@ export class MainNavComponent implements OnInit {
 
   onLogout() {
     const message = 'You Have Been Logged Out.';
-    this.snackBar.open(message, 'Confirm', {duration: 3000});
+    this.snackBar.open(message, 'Confirm', { duration: 3000 });
     this.authService.logout();
     this.router.navigate(['']);
   }
