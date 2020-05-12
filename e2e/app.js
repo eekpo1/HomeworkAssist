@@ -117,6 +117,30 @@ app.post("/api/posts/:id", (req, res, next) => {
   });
 });
 
+app.post("/api/reply/:id", (req, res, next) => {
+  const subforum = posts[+req.params.id];
+  // console.log(req.body.replies);
+  const post = new subforum({
+    pinned: req.body.pinned,
+    title: req.body.title,
+    contents: req.body.contents,
+    author: req.body.author,
+  });
+
+  post.replies.push({ username: req.body.username, reply: req.body.reply})
+  console.log(post)
+
+  // post.save().then((result) => {
+  //   console.log(result);
+  //   res.status(201).json({
+  //     message: "Post added succesfully",
+  //     id: result._id,
+  //   });
+  // });
+});
+
+
+
 app.get("/api/posts/:id", (req, res) => {
   const i = +req.params.id;
   posts[i].find().then((documents) => {
@@ -142,13 +166,6 @@ app.delete("/api/posts/:postid/:id", (req, res) => {
   );
 });
 
-// app.update('/api/posts/:postid/:id', (req, res) => {
-//   const postID = +req.params.postid;
-//   const id = +req.params.id;
-
-//   posts[postID].findOneAndUpdate({ _id: id, })
-
-// })
 
 app.post("/api/register", (req, res) => {
   User.find({username: req.body.username}, (err, user) => {
