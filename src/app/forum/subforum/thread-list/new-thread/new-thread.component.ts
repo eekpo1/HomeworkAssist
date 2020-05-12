@@ -37,7 +37,6 @@ export class NewThreadComponent implements OnInit {
     });
     console.log(title.value);
     const user = this.authService.currentUser;
-    console.log(this.model.data);
     const post = {
       _id: null,
       pinned: true,

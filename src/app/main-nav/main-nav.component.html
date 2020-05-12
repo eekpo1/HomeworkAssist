@@ -10,8 +10,9 @@
       [opened]="(isHandset$ | async) === false"
     >
       <mat-toolbar *ngIf="isLoggedIn"
-        >Welcome {{ user ? user.firstname : "" }}!
-      </mat-toolbar>
+      >Welcome {{ user ? user.firstname : "" }}!
+      </mat-toolbar
+      >
       <mat-nav-list>
         <a mat-list-item routerLink="forum" *ngIf="isLoggedIn">Forum</a>
         <a mat-list-item routerLink="help">Help</a>
@@ -50,25 +51,25 @@
             [matBadgeHidden]="notifications < 1"
             [disabled]="notifications < 1"
             *ngIf="isLoggedIn && user"
-            >Welcome {{ user.firstname }}!</a
+          >Welcome {{ user.firstname }}!</a
           >
           <a
             mat-button
             class="nav-item"
             [routerLink]="['forum']"
             *ngIf="isLoggedIn"
-            >Forum</a
+          >Forum</a
           >
           <a mat-button class="nav-item" routerLink="help">Help</a>
           <a mat-button class="nav-item" routerLink="login" *ngIf="!isLoggedIn"
-            >Login</a
+          >Login</a
           >
           <a
             mat-button
             class="nav-item"
             routerLink="register"
             *ngIf="!isLoggedIn"
-            >Register</a
+          >Register</a
           >
           <a
             class="nav-item"
