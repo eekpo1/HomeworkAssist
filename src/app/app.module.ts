@@ -30,7 +30,7 @@ import { LoginComponent } from './login/login.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThreadListComponent } from './forum/subforum/thread-list/thread-list.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NewThreadComponent } from './forum/subforum/thread-list/new-thread/new-thread.component';
@@ -41,6 +41,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PostComponent } from './forum/subforum/thread-list/thread/post/post.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { RteComponent } from './forum/subforum/thread-list/rte/rte.component';
+import { WtfComponent } from './forum/subforum/thread-list/thread/post/wtf/wtf.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { RteComponent } from './forum/subforum/thread-list/rte/rte.component';
     NewThreadComponent,
     PostComponent,
     RteComponent,
+    WtfComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +89,7 @@ import { RteComponent } from './forum/subforum/thread-list/rte/rte.component';
     MatInputModule,
     CKEditorModule,
     MatBadgeModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

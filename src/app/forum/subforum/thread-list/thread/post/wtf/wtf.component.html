@@ -1,2 +1,23 @@
-<p>wtf works!</p>
-<p>{{ wat.author }}</p>
+<div class="container post">
+  <!-- <mat-divider></mat-divider> -->
+  <div itemscope class="post-wrapper">
+    <div class="row">
+      <div id="subforum-name">
+        <h1 itemprop="title">{{ wat.title }}</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <!--user info-->
+        <p class="mat-headline subforum-author">
+          {{ wat.author | titlecase }}
+        </p>
+      </div>
+      <div class="col-10">
+        <div class="subforum-text" itemprop="text">
+          <p [innerHTML]="wat.contents">{{ wat.contents }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

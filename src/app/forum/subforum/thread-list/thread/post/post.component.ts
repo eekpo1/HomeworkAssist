@@ -192,7 +192,10 @@ export class PostComponent implements OnInit {
     return newNode;
   };
 
-  getLevel = (node: MoreFlatNode) => node.level;
+  getLevel = (node: MoreFlatNode) => {
+    console.log(node);
+    return node.level;
+  };
 
   isExpandable = (node: MoreFlatNode) => node.expandable;
 

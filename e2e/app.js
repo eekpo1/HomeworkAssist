@@ -11,13 +11,13 @@ const saltRounds = 10;
 const app = express();
 // JSON PARSER - Body Parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // We should put the mongoose connection here
 let db = mongoose.connection;
 mongoose.connect(
   "mongodb+srv://edwin:three2one@homeworkassist-1kviu.mongodb.net/HomeworkAssist",
-  {useNewUrlParser: true}
+  { useNewUrlParser: true }
 );
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
@@ -131,10 +131,10 @@ app.get("/api/posts/:id", (req, res) => {
 app.delete("/api/posts/:postid/:id", (req, res) => {
   console.log(req.params);
   const id = +req.params.postid;
-  posts[id].deleteOne({_id: req.params.id}).then(
+  posts[id].deleteOne({ _id: req.params.id }).then(
     (result) => {
       console.log(result.deletedCount);
-      res.status(200).json({message: "post deleted"});
+      res.status(200).json({ message: "post deleted" });
     },
     (error) => {
       console.log(error);
@@ -151,9 +151,9 @@ app.delete("/api/posts/:postid/:id", (req, res) => {
 // })
 
 app.post("/api/register", (req, res) => {
-  User.find({username: req.body.username}, (err, user) => {
+  User.find({ username: req.body.username }, (err, user) => {
     if (err) throw err;
-    if (user.length > 0) res.status(409).json({message: "Username taken"});
+    if (user.length > 0) res.status(409).json({ message: "Username taken" });
     else {
       bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
         if (err) throw err;
@@ -180,7 +180,7 @@ app.post("/api/register", (req, res) => {
 });
 
 app.post("/api/login", (req, res) => {
-  User.findOne({username: req.body.username}, (err, user) => {
+  User.findOne({ username: req.body.username }, (err, user) => {
     if (err) throw err;
     // console.log(user);
     if (user) {
@@ -196,13 +196,13 @@ app.post("/api/login", (req, res) => {
             process.env.REFRESH_TOKEN_SECRET
           );
           // console.log(accesToken)
-          User.updateOne({refreshToken: "321"}, (err, res) => {
+          User.updateOne({ refreshToken: "321" }, (err, res) => {
             if (err) throw err;
           });
           // console.log(accesToken);
           // console.log(user.username)
           // console.log(user._id);
-          res.json({accessToken: "123", userID: user._id});
+          res.json({ accessToken: "123", userID: user._id });
         }
       });
     }
@@ -222,7 +222,7 @@ app.get("/api/users/:id", (req, res) => {
   User.findById(id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.status(200).json({user: result});
+    res.status(200).json({ user: result });
   });
 });
 
@@ -240,6 +240,6 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "10m"});
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
 }
 module.exports = app;
