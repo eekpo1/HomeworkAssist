@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {SubForum} from 'src/app/models/subforum.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { SubForum } from 'src/app/models/subforum.model';
 
 @Component({
   selector: 'app-subforum',
@@ -10,9 +10,7 @@ export class SubForumComponent implements OnInit {
   @Input() sub: SubForum;
   @Input() index: number;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

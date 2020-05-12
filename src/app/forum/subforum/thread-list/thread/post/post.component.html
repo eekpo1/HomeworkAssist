@@ -1,55 +1,55 @@
-<body>
 <mat-toolbar
   color="primary"
   style="
-      width: 80% !important;
-      margin: auto;
-      border-bottom-left-radius: 25px;
-      border-bottom-right-radius: 25px;
-      border-top: 1px solid black;
-    "
+    width: 80% !important;
+    margin: auto;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top: 1px solid black;
+  "
 >
   <button mat-button class="mat-headline title" disabled>
     <em>{{ post.title | titlecase }}</em>
   </button>
 </mat-toolbar>
-<div class="container post">
-  <!-- <mat-divider></mat-divider> -->
-  <div itemscope class="post-wrapper">
-    <div class="row">
-      <div id="subforum-name">
-        <h1 itemprop="title">{{ forumIdx }}</h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-2">
-        <!--user info-->
-        <p class="mat-headline subforum-author">
-          {{ post.author | titlecase }}
-        </p>
-      </div>
-        <div class="col-10">
-          <div class="subforum-text" itemprop="text">
-            <p [innerHTML]="post.contents">{{ post.contents }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+    <!--    <div class="container post">-->
+    <!--      &lt;!&ndash; <mat-divider></mat-divider> &ndash;&gt;-->
+    <!--      <div itemscope class="post-wrapper">-->
+    <!--        <div class="row">-->
+    <!--          <div id="subforum-name">-->
+    <!--            <h1 itemprop="title">{{ node.item }}</h1>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--        <div class="row">-->
+    <!--          <div class="col-2">-->
+    <!--            &lt;!&ndash;user info&ndash;&gt;-->
+    <!--            <p class="mat-headline subforum-author">-->
+    <!--              {{ post.author | titlecase }}-->
+    <!--            </p>-->
+    <!--          </div>-->
+    <!--          <div class="col-10">-->
+    <!--            <div class="subforum-text" itemprop="text">-->
+    <!--              <p [innerHTML]="post.contents">{{ post.contents }}</p>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <app-wtf [wat]="node.item"></app-wtf>
+  </mat-tree-node>
 
-    <ul id="responses" *ngIf="post.replies.length > 0">
-      <div itemscope>
-        <div class="row">
-          <div class="col-2">
-            <!--user info-->
-            <p>user info</p>
-          </div>
-          <div class="col-10">
-            <div class="response-text" itemprop="text">
-              <p>subforum response 1 here</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ul>
-  </div>
-</body>
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button mat-icon-button (click)="loadChildren(node)" matTreeNodePadding>
+      <mat-icon class="">
+        {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
+      </mat-icon>
+    </button>
+    {{ node.item }}
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: isLoadMore">
+    <button mat-button (click)="loadmore(node.parent)"></button>
+  </mat-tree-node>
+</mat-tree>
